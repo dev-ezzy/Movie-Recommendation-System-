@@ -2,7 +2,8 @@
 import pandas as pd
 import numpy as np
 from surprise import KNNBasic, accuracy
-
+import streamlit as st
+import joblib
 
 # recommender function
 movies = pd.read_csv("data/movies.csv")
@@ -71,4 +72,34 @@ def knn_caller(user_id, knn_model):
                 else:
                     print(f"Movie with ID {movie_id} not found in movies_df")
                     
-                
+# Streamlit UI
+st.title("Ezra Recommendation System")
+
+# # SVD Model
+# st.subheader("SVD Recommendations")
+# user_id_svd = st.number_input("Enter your User ID for SVD Recommendations", min_value=1, step=1)
+# num_recommendations_svd = st.slider("Number of SVD Recommendations", 1, 10, 5)
+# if st.button('Get SVD Recommendations'):
+#     # Load your trained SVD model
+#     svd_model = joblib.load("best_recommender.joblib")  # Corrected model path
+#     recommended_movies_svd = recommender_system(user_id_svd, num_recommendations_svd, baseline_data, svd_model)
+#     st.write(recommended_movies_svd)
+
+# # KNN Model
+# st.subheader("KNN Recommendations")
+# user_id_knn = st.number_input("Enter your User ID for KNN Recommendations", min_value=1, step=1)
+# num_recommendations_knn = st.slider("Number of KNN Recommendations", 1, 8, 5)
+# if st.button('Get KNN Recommendations'):
+#     # Load your trained KNN model
+#     knn_model = joblib.load("best_recommender.joblib")  # Replace with your model path
+#     recommended_movies_knn = knn_recommender(user_id_knn, num_recommendations_knn, knn_model)
+#     st.write(recommended_movies_knn)
+
+# TensorFlow Recommenders Model
+st.subheader("TensorFlow Recommenders")
+user_id_tf = st.number_input("Enter your User ID for TensorFlow Recommendations", min_value=1, step=1)
+if st.button('Get TensorFlow Recommendations'):
+    # Load your trained TensorFlow model
+    tf_model = joblib.load("best_recommender.joblib")  # Replace with your model path
+    recommended_movies_tf = get_top_movie_predictions(user_id_tf, user_mapping, movie_mapping, tf_model, modelling_data)
+    st.write(recommended_movies_tf)                
