@@ -95,4 +95,4 @@ if st.button('Get TensorFlow Recommendations'):
     # Load your trained TensorFlow model
     tf_model = joblib.load("best_recommender.joblib")  # Replace with your model path
     recommended_movies_tf = get_top_movie_predictions(user_id_tf, user_mapping, movie_mapping, tf_model, modelling_data)
-    st.write(recommended_movies_tf)                
+    st.write(recommended_movies_tf)     
